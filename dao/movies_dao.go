@@ -27,20 +27,16 @@ func (m *MoviesDAO) Connect() {
 	db = session.DB(m.Database)
 }
 
-func (m *MoviesDAO) FindAll() []Movie {
+func (m *MoviesDAO) FindAll() ([]Movie, error) {
 	var movies []Movie
-	if err := db.C(COLLECTION).Find(bson.M{}).All(&movies); err != nil {
-		log.Fatal(err)
-	}
-	return movies
+	err := db.C(COLLECTION).Find(bson.M{}).All(&movies)
+	return movies, err
 }
 
-func (m *MoviesDAO) FindById(id string) Movie {
+func (m *MoviesDAO) FindById(id string) (Movie, error) {
 	var movie Movie
-	if err := db.C(COLLECTION).FindId(bson.ObjectIdHex(id)).One(&movie); err != nil {
-		log.Fatal(err)
-	}
-	return movie
+	err := db.C(COLLECTION).FindId(bson.ObjectIdHex(id)).One(&movie)
+	return movie, err
 }
 
 func (m *MoviesDAO) Insert(movie Movie) error {
@@ -48,14 +44,12 @@ func (m *MoviesDAO) Insert(movie Movie) error {
 	return err
 }
 
-func (m *MoviesDAO) Delete(movie Movie) {
-	if err := db.C(COLLECTION).Remove(&movie); err != nil {
-		log.Fatal(err)
-	}
+func (m *MoviesDAO) Delete(movie Movie) error {
+	err := db.C(COLLECTION).Remove(&movie)
+	return err
 }
 
-func (m *MoviesDAO) Update(movie Movie) {
-	if err := db.C(COLLECTION).UpdateId(movie.ID, &movie); err != nil {
-		log.Fatal(err)
-	}
+func (m *MoviesDAO) Update(movie Movie) error {
+	err := db.C(COLLECTION).UpdateId(movie.ID, &movie)
+	return err
 }
