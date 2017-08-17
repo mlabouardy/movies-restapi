@@ -1,3 +1,2 @@
-[mongodb]
-  server="localhost"
-  database="movies_db"
+server="localhost"
+database="movies_db"

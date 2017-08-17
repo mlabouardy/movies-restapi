@@ -43,10 +43,9 @@ func (m *MoviesDAO) FindById(id string) Movie {
 	return movie
 }
 
-func (m *MoviesDAO) Insert(movie Movie) {
-	if err := db.C(COLLECTION).Insert(&movie); err != nil {
-		log.Fatal(err)
-	}
+func (m *MoviesDAO) Insert(movie Movie) error {
+	err := db.C(COLLECTION).Insert(&movie)
+	return err
 }
 
 func (m *MoviesDAO) Delete(movie Movie) {
