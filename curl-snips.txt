@@ -1,0 +1,15 @@
+# POST a new movie
+curl -sSX POST -d '{"name":"dunkirk","cover_image":"https://www.imdb.com/title/tt5013056/mediaviewer/rm3222677504","description":"world war 2 movie"}' http://localhost:3000/movies | jq '.'
+curl -sSX POST -d '{"name":"out of africa","cover_image":"https://www.imdb.com/title/tt0089755/mediaviewer/rm695889920","description":"epic on the plains of Africa"}' http://localhost:3000/movies | jq '.'
+
+# GET all movies
+curl -sSX GET http://localhost:3000/movies | jq '.'
+
+# GET a specific movie
+curl -sSX GET http://localhost:3000/movies/5caa5eb318f047c0bc7b42d6 | jq '.'
+
+# PUT an update for a specific movie
+curl -sSX PUT -d '{"id":"5caa5eb318f047c0bc7b42d6", "name":"dunkirk","cover_image":"https://www.imdb.com/title/tt5013056/mediaviewer/rm3222677504","description":"world war 2 movie about the british army"}' http://localhost:3000/movies | jq '.'
+
+# DELETE a specific movie
+curl -sSX DELETE -d '{"id":"5caa5eb318f047c0bc7b42d6"}' http://localhost:3000/movies | jq '.'
